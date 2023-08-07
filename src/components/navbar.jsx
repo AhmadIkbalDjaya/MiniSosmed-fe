@@ -11,7 +11,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <div className={"shadow w-full fixed top-0 left-0"}>
+      <div className={"shadow w-full fixed top-0 left-0 z-[1]"}>
         <header
           className={
             "px-0 md:px-3 py-0 md:py-3 md:flex md:items-baseline md:gap-x-3 bg-blue-600"
