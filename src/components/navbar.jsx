@@ -38,9 +38,11 @@ export default function Navbar() {
             )}
           </div>
           <div
-            className={
-              `grow py-1 px-3 md:px-0 md:py-0 md:flex md:justify-between md:items-baseline absolute md:static bg-blue-600 w-full md:z-auto z-[-1] transition-all duration-500 ease-in ${open ? 'top-15 opacity-100' : 'top-[-400px] opacity-0 md:opacity-100'}`
-            }
+            className={`grow py-1 px-3 md:px-0 md:py-0 md:flex md:justify-between md:items-baseline absolute md:static bg-blue-600 w-full md:z-auto z-[-1] transition-all duration-500 ease-in ${
+              open
+                ? "top-15 opacity-100"
+                : "top-[-400px] opacity-0 md:opacity-100"
+            }`}
           >
             <div className={"flex justify-between"}>
               <input

@@ -1,4 +1,5 @@
 import CreatePost from "./components/create_post";
+import Modal from "./components/modal";
 import Navbar from "./components/navbar";
 import OtherUser from "./components/other_user";
 import Post from "./components/post";
@@ -29,12 +30,15 @@ export default function App() {
           <div className="flex justify-between text-gray-500 text-xs">
             <p>About Me</p>
             <p>
-              &copy; 2023, 
+              &copy; 2023,
               <span className="font-bold"> djaya_ikbal</span>
             </p>
           </div>
         </div>
       </main>
+      {/* <Modal visible={false}> 
+      mmmm
+      </Modal> */}
     </>
   );
 }
