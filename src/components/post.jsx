@@ -35,7 +35,7 @@ export default function Post() {
             {showPostOption ? (
               <div
                 className={
-                  "bg-white shadow-md absolute px-3 py-2 top-6 md:left-[-10px] right-[10px] w-max rounded"
+                  "bg-white shadow-md absolute px-3 py-2 top-6 md:left-[-75px] right-[10px] w-max rounded"
                 }
               >
                 <button

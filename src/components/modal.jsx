@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { IconX } from "@tabler/icons-react";
 
 export default function Modal(props) {

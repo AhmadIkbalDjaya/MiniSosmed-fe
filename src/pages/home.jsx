@@ -9,15 +9,15 @@ export default function Home() {
       <Navbar />
       <main
         className={
-          "min-h-[93vh] border-box md:mx-12 md:px-12 px-3 mt-12 py-12 md:grid md:grid-cols-6 md:gap-6"
+          "min-h-[93vh] border-box md:mx-12 md:px-12 px-3 mt-12 py-12 md:grid md:grid-cols-12 md:gap-6"
         }
       >
-        <div className={"col-span-4"}>
+        <div className={"col-span-8"}>
           <CreatePost />
           <Post />
           <Post />
         </div>
-        <div className={"col-span-2 hidden md:block"}>
+        <div className={"col-span-4 hidden md:block"}>
           <h1 className={"font-semibold text-gray-500"}>
             Mungkin Anda Mengenal
           </h1>
