@@ -3,7 +3,6 @@ import {
   IconMessage2,
   IconPencil,
   IconTrash,
-  IconX,
 } from "@tabler/icons-react";
 import ProfileAvatar from "./profile_avatar";
 import { useState } from "react";
@@ -17,6 +16,7 @@ export default function Post() {
   const [showPostOption, setShowPostOption] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [showPostDeleteModal, setShowPostDeleteModal] = useState(false);
+  const [showPostEditModal, setShowPostEditModal] = useState(false);
 
   return (
     <>
@@ -35,10 +35,13 @@ export default function Post() {
             {showPostOption ? (
               <div
                 className={
-                  "bg-white shadow-md absolute px-3 py-2 top-6 left-[-10px] w-max rounded"
+                  "bg-white shadow-md absolute px-3 py-2 top-6 md:left-[-10px] right-[10px] w-max rounded"
                 }
               >
-                <button className={"flex gap-1 my-1"}>
+                <button
+                  className={"flex gap-1 my-1"}
+                  onClick={() => setShowPostEditModal(true)}
+                >
                   <IconPencil />
                   Edit Postingan
                 </button>
@@ -92,14 +95,65 @@ export default function Post() {
           ""
         )}
       </div>
+      {/* modal delete post */}
       <Modal
         visible={showPostDeleteModal}
         close={() => {
           setShowPostDeleteModal(false);
         }}
+        title="Konfirmasi Hapus"
       >
-        ss
+        <div className={"p-3"}>
+          <h1 className={"text-center"}>Yakin Ingin Menghapus?</h1>
+        </div>
+        <hr />
+        <footer className={"pt-3 px-3 text-end"}>
+          <button
+            className="px-2 rounded bg-gray-400 font-semibold text-white me-2"
+            onClick={() => setShowPostDeleteModal(false)}
+          >
+            Cancel
+          </button>
+          <button className="px-2 rounded bg-red-600 font-semibold text-white">
+            Hapus
+          </button>
+        </footer>
       </Modal>
+      {/* end modal delete post */}
+
+      {/* modal edit post */}
+      <Modal
+        visible={showPostEditModal}
+        close={() => {
+          setShowPostEditModal(false);
+        }}
+        title={"Edit Postingan"}
+      >
+        <div className={"p-3"}>
+          <div className={"flex gap-2 items-center"}>
+            <ProfileAvatar />
+            <h1 className={"font-semibold"}>Ahmad Ikbal Djaya</h1>
+          </div>
+          <textarea name="" id="" className="w-full border my-3"></textarea>
+          <div>
+            <p className={"font-semibold pb-2"}>Upload Gambar</p>
+            <input type="file" src="" alt="" />
+          </div>
+        </div>
+        <hr />
+        <footer className={"pt-3 px-3 text-end"}>
+          <button
+            className="px-2 rounded bg-gray-400 font-semibold text-white me-2"
+            onClick={() => setShowPostEditModal(false)}
+          >
+            Cancel
+          </button>
+          <button className="px-2 rounded bg-blue-600 font-semibold text-white">
+            Posting
+          </button>
+        </footer>
+      </Modal>
+      {/* end modal edit post */}
     </>
   );
 }

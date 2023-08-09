@@ -1,3 +1,4 @@
+import { Link as RouterLink } from "react-router-dom";
 import {
   IconHome2,
   IconLogout,
@@ -22,9 +23,9 @@ export default function Navbar() {
               "flex justify-between items-center py-3 md:py-0 px-3 md:px-0"
             }
           >
-            <a href="" className={"text-white text-xl"}>
+            <RouterLink to={"/"} className={"text-white text-xl"}>
               Minsos
-            </a>
+            </RouterLink>
             {open ? (
               <IconX
                 onClick={() => setOpen(!open)}
@@ -63,35 +64,35 @@ export default function Navbar() {
             </div>
             <ul className={"md:flex gap-3 "}>
               <li className={"my-3 md:my-0"}>
-                <a
-                  href=""
+                <RouterLink
+                  to={"/"}
                   className={"flex gap-x-1 font-semibold text-base text-white"}
                 >
                   Home
                   <IconHome2 />
-                </a>
+                </RouterLink>
               </li>
               <li className={"my-3 md:my-0"}>
-                <a
-                  href=""
+                <RouterLink
+                  to={"/profile"}
                   className={
                     "flex gap-x-1 font-semibold text-base text-gray-400 hover:text-white duration-500"
                   }
                 >
                   Profile
                   <IconUser />
-                </a>
+                </RouterLink>
               </li>
               <li className={"my-3 md:my-0"}>
-                <a
-                  href=""
+                <RouterLink
+                  to={"/login"}
                   className={
                     "flex gap-x-1 font-semibold text-base text-gray-400 hover:text-white duration-500"
                   }
                 >
                   Logout
                   <IconLogout />
-                </a>
+                </RouterLink>
               </li>
             </ul>
           </div>

@@ -14,12 +14,13 @@ export default function Modal(props) {
       }
       onClick={handleOnClose}
     >
-      <div className="bg-white p-3 rounded">
-        <header className={"flex justify-between"}>
-          <h1>Modal Title</h1>
-          <IconX onClick={() => close()} />
+      <div className="bg-white py-3 rounded w-[90vw] sm:w-[400px]">
+        <header className={"flex justify-between px-3 mb-2 items-center"}>
+          <h1 className={"font-bold text-md"}>{props.title}</h1>
+          <IconX size={20} onClick={() => close()} />
         </header>
-        {props.children}
+        <hr />
+        <div className={""}>{props.children}</div>
       </div>
     </div>
   );
