@@ -30,7 +30,7 @@ export default function CreatePost() {
         <div className={"p-3"}>
           <div className={"flex gap-2 items-center"}>
             <ProfileAvatar />
-            <h1 className={"font-semibold"}>Ahmad Ikbal Djaya</h1>
+            <h1 className={"font-semibold"}>{auth?.name}</h1>
           </div>
           <textarea name="" id="" className="w-full border my-3"></textarea>
           <div>

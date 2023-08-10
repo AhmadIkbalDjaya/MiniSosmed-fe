@@ -62,7 +62,8 @@ export default function Post({ post }) {
         </header>
 
         <main className={""}>
-          <div className={"px-4 py-3"}>{post.body}</div>
+          {/* <div className={"px-4 py-3"}>{post.body}</div> */}
+          <div className={"px-4 py-3"} dangerouslySetInnerHTML={{ __html: post.body }} />
           {post.image && (
             <div>
               <img src={post.image} alt="" />

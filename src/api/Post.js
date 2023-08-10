@@ -5,7 +5,13 @@ const headers = {
   Accept: "application/json",
   Authorization: `Bearer ${new Cookies().get("Authorization")}`
 };
+
 export const getPostDashboard = async () => {
   const posts = await axios.get("https://sgso-invitation.com/api/dashboard", {headers});
   return posts.data.data;
 };
+
+export const getUserPost = async (username) => {
+  const posts = await axios.get(`https://sgso-invitation.com/api/profile/posts/${username}`, {headers});
+  return posts.data.data;
+}

@@ -1,8 +1,8 @@
-import defaultProfileImage from "../assets/images/default-profile.jpg";
+/* eslint-disable react/prop-types */
 import image from "../assets/images/image.jpg";
 import ProfileAvatar from "./profile_avatar";
 
-export default function HeaderProfile() {
+export default function HeaderProfile({ profile }) {
   return (
     <>
       <header className="border-box md:mx-12 md:px-12 px-0 mt-12 pt-1">
@@ -20,12 +20,12 @@ export default function HeaderProfile() {
         >
           <ProfileAvatar width={"100px"} heigth={"100px"} />
           <div className={"grow text-center"}>
-            <h1 className={"text-2xl font-bold"}>Ahmad Ikbal Djaya</h1>
+            <h1 className={"text-2xl font-bold"}>{profile?.name}</h1>
             <div className={"pt-3 flex justify-center"}>
               <button className={"border mx-3 px-2 rounded"}>
-                100 Pengikut
+                {profile?.followers} Pengikut
               </button>
-              <button className={"border mx-3 px-2 rounded"}>10 Diikuti</button>
+              <button className={"border mx-3 px-2 rounded"}>{profile?.follows} Diikuti</button>
             </div>
           </div>
           <button

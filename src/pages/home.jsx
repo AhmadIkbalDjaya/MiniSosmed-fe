@@ -10,8 +10,8 @@ export default function Home() {
 
   useEffect(() => {
     getPost();
-    // console.log(posts);
-  });
+    document.title = "Minsos"
+  }, []);
 
   const getPost = async () => {
     try {
@@ -21,7 +21,7 @@ export default function Home() {
       console.log(e);
     }
   };
-
+  // console.log(posts);
   // const PostList = () => {
   //   return posts.map((post, i)=>{
   //     return <Post key={i} />

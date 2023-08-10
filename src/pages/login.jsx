@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useEffect } from "react";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -45,6 +45,9 @@ export default function Login() {
           });
       });
   };
+  useEffect(() => {
+    auth && navigate("/");
+  });
   return (
     <div className={"flex flex-wrap items-center justify-center min-h-screen"}>
       <div>

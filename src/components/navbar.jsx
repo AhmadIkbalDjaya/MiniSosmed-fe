@@ -7,8 +7,10 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import {useAuth} from "../hooks/useAuth";
 
 export default function Navbar() {
+  const { auth } = useAuth();
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -74,7 +76,7 @@ export default function Navbar() {
               </li>
               <li className={"my-3 md:my-0"}>
                 <RouterLink
-                  to={"/profile"}
+                  to={`/profile/${auth?.username}`}
                   className={
                     "flex gap-x-1 font-semibold text-base text-gray-400 hover:text-white duration-500"
                   }
