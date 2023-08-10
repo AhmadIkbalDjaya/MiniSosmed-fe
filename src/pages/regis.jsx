@@ -1,6 +1,11 @@
 import { Link as RouterLink } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
+import { useContext } from "react";
+
 
 export default function Regis() {
+  const {auth} = useContext(AuthContext);
+  console.log(auth.name);
   return (
     <div className={"flex flex-wrap items-center justify-center min-h-screen"}>
       <div>
@@ -13,7 +18,7 @@ export default function Regis() {
             <input
               type="text"
               name="name"
-              id=""
+              id="name"
               placeholder="Nama"
               className={
                 "w-full border border-gray-400 rounded-full px-3 py-2 mt-5 focus:outline-blue-300"
@@ -22,7 +27,7 @@ export default function Regis() {
             <input
               type="text"
               name="username"
-              id=""
+              id="username"
               placeholder="Email"
               className={
                 "w-full border border-gray-400 rounded-full px-3 py-2 mt-5 focus:outline-blue-300"
@@ -31,7 +36,7 @@ export default function Regis() {
             <input
               type="password"
               name="password"
-              id=""
+              id="password"
               placeholder="Password"
               className={
                 "w-full border border-gray-400 rounded-full px-3 py-2 mt-5 focus:outline-blue-300"

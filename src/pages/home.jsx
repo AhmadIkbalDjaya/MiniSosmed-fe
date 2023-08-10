@@ -37,7 +37,6 @@ export default function Home() {
       >
         <div className={"col-span-8"}>
           <CreatePost />
-          {/* <PostList /> */}
           {posts.map((post, i) => {
             return <Post key={i} post={post} />;
           })}

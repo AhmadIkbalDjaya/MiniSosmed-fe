@@ -1,17 +1,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useContext } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { Auth } from "../App";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function Login() {
   const inputEmail = useRef(null);
   const inputPassword = useRef(null);
   const cookies = new Cookies();
-  const {auth, setAuth} = useContext(Auth);
+  const { auth, setAuth } = useContext(AuthContext);
 
-  const handleLogin = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
+  const handleLogin = (e) => {
+    e.preventDefault();
     const email = inputEmail.current.value;
     const password = inputPassword.current.value;
     // console.log(email);
@@ -35,7 +40,8 @@ export default function Login() {
             },
           })
           .then((response) => {
-            setAuth(response.data.data.user)
+            setAuth(response.data.data.user);
+            navigate(from, { replace: true });
           });
       });
   };
@@ -47,7 +53,7 @@ export default function Login() {
           className={"bg-white rounded-lg shadow-md px-3 py-3 md:max-w-[400px]"}
         >
           <h1 className="text-2xl">Login</h1>
-          <form action="">
+          <form action="" onSubmit={handleLogin}>
             <input
               type="text"
               name="email"
@@ -69,8 +75,8 @@ export default function Login() {
               }
             />
             <button
-              type="button"
-              onClick={handleLogin}
+              type="submit"
+              // onClick={handleLogin}
               className={
                 "bg-blue-600 py-2 my-4 rounded-lg w-full text-white font-semibold text-lg"
               }

@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ProfileAvatar from "./profile_avatar";
 import Modal from "./modal";
-
+import { AuthContext } from "../context/AuthProvider";
 export default function CreatePost() {
   const [showPostCreateModal, setShowPostCreateModal] = useState(false);
-
+  const { auth } = useContext(AuthContext);
   return (
     <>
       <div className={"bg-white mb-4 px-4 py-3 rounded shadow flex gap-3"}>
@@ -15,7 +15,7 @@ export default function CreatePost() {
           }
           onClick={() => setShowPostCreateModal(true)}
         >
-          Apa yang sedang anda pikirkan, Ahmad Ikbal Djaya?
+          Apa yang sedang anda pikirkan, {auth?.name}?
         </button>
       </div>
 

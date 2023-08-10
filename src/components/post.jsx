@@ -68,21 +68,6 @@ export default function Post({ post }) {
               <img src={post.image} alt="" />
             </div>
           )}
-
-          {/* {post.image ? (
-            <div>
-              <img src={post.image} alt="" />
-            </div>
-          ) : (
-            ""
-          )} */}
-
-          {/* if (post.image){" "}
-          {
-            <div>
-              <img src={post.image} alt="" />
-            </div>
-          } */}
         </main>
 
         <hr />
@@ -102,7 +87,7 @@ export default function Post({ post }) {
         {showComment ? (
           <div className={"relative bg-white w-full px-4 rounded-b"}>
             <div className={"max-h-[200px] overflow-auto"}>
-              {post.comment.map((comment, i) => {
+              {post.comments.map((comment, i) => {
                 return <Comment key={i} comment={comment} />;
               })}
             </div>
