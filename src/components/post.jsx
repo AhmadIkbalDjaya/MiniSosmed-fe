@@ -1,18 +1,20 @@
+/* eslint-disable react/prop-types */
 import {
   IconDots,
   IconMessage2,
   IconPencil,
+  IconThumbUpFilled,
   IconTrash,
 } from "@tabler/icons-react";
 import ProfileAvatar from "./profile_avatar";
 import { useState } from "react";
-import image from "../assets/images/image.jpg";
+// import image from "../assets/images/image.jpg";
 import { IconThumbUp } from "@tabler/icons-react";
 import Comment from "./comment";
 import CreateComment from "./create_comment";
 import Modal from "./modal";
 
-export default function Post() {
+export default function Post({ post }) {
   const [showPostOption, setShowPostOption] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [showPostDeleteModal, setShowPostDeleteModal] = useState(false);
@@ -24,8 +26,8 @@ export default function Post() {
         <header className={"px-4 flex items-center justify-between"}>
           <ProfileAvatar />
           <div className={"px-5 grow"}>
-            <h1 className={"font-bold"}>Ahmad Ikbal Djaya</h1>
-            <h6 className={"text-gray-500 text-sm"}>1 Minggu yang lalu</h6>
+            <h1 className={"font-bold"}>{post.name}</h1>
+            <h6 className={"text-gray-500 text-sm"}>{post.updated_at}</h6>
           </div>
           <div
             className={"me-3 relative"}
@@ -60,34 +62,49 @@ export default function Post() {
         </header>
 
         <main className={""}>
-          <div className={"px-4 py-3"}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
-            cupiditate quasi, reiciendis corrupti unde tenetur quia facere
-            voluptatem doloribus dicta.
-          </div>
-          <div>
-            <img src={image} alt="" />
-          </div>
+          <div className={"px-4 py-3"}>{post.body}</div>
+          {post.image && (
+            <div>
+              <img src={post.image} alt="" />
+            </div>
+          )}
+
+          {/* {post.image ? (
+            <div>
+              <img src={post.image} alt="" />
+            </div>
+          ) : (
+            ""
+          )} */}
+
+          {/* if (post.image){" "}
+          {
+            <div>
+              <img src={post.image} alt="" />
+            </div>
+          } */}
         </main>
 
         <hr />
 
         <footer className={"flex justify-around my-1"}>
           <button className={"flex gap-1 mb-1"}>
-            <IconThumbUp /> 1 Like
+            {post.hasLike ? <IconThumbUpFilled /> : <IconThumbUp /> }
+            {post.like_count} Like
           </button>
           <button
             className={"flex gap-1 mb-1 relative"}
             onClick={() => setShowComment(!showComment)}
           >
-            <IconMessage2 /> 1 Comment
+            <IconMessage2 /> {post.comment_count} Comment
           </button>
         </footer>
         {showComment ? (
           <div className={"relative bg-white w-full px-4 rounded-b"}>
-            <div>
-              <Comment />
-              <Comment />
+            <div className={"max-h-[200px] overflow-auto"}>
+              {post.comment.map((comment, i) => {
+                return <Comment key={i} comment={comment} />;
+              })}
             </div>
             <CreateComment />
           </div>
