@@ -11,8 +11,8 @@ export default function ProfileAvatar({width, heigth}) {
         src={defaultProfileImage}
         alt=""
         className={`max-h-[${withh}] max-w-[${heigthh}] rounded-full`}
-        // width={width}
-        // height={heigth}
+        width={withh}
+        height={heigthh}
       />
     </div>
   );
