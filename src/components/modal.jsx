@@ -21,7 +21,9 @@ export default function Modal(props) {
           <IconX size={20} onClick={() => close()} />
         </header>
         <hr />
-        <div className={""}>{props.children}</div>
+        <div className={""}>
+          {props.children}
+          </div>
       </div>
     </div>
   );

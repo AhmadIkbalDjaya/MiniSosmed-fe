@@ -4,8 +4,8 @@ import HeaderProfile from "../components/header_profile";
 import Navbar from "../components/navbar";
 import Post from "../components/post";
 import { useEffect, useState } from "react";
-import { getUserPost } from "../api/Post";
-import { getUserProfile } from "../api/User";
+import { getUserPost } from "../api/postApi";
+import { getUserProfile } from "../api/userApi";
 import { useParams } from "react-router-dom";
 
 export default function Profile() {

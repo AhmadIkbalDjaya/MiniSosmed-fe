@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
     getPost();
-    document.title = "Minsos"
+    document.title = "Minsos";
   }, []);
 
   const getPost = async () => {
@@ -36,7 +36,7 @@ export default function Home() {
         }
       >
         <div className={"col-span-8"}>
-          <CreatePost />
+          <CreatePost getPost={getPost} />
           {posts.map((post, i) => {
             return <Post key={i} post={post} />;
           })}

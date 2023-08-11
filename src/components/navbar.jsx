@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link as RouterLink } from "react-router-dom";
 import {
   IconHome2,
@@ -7,11 +8,27 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import {useAuth} from "../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 export default function Navbar() {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [open, setOpen] = useState(false);
+  const cookies = new Cookies();
+
+  const handleLogout = () => {
+    const response = axios.get("https://sgso-invitation.com/api/logout", {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+    if (response) {
+      setAuth(null);
+      cookies.remove("Authorization");
+    }
+  };
   return (
     <>
       <div className={"shadow w-full fixed top-0 left-0 z-[1]"}>
@@ -86,15 +103,17 @@ export default function Navbar() {
                 </RouterLink>
               </li>
               <li className={"my-3 md:my-0"}>
-                <RouterLink
-                  to={"/login"}
+                <button
+                  onClick={() => {
+                    handleLogout();
+                  }}
                   className={
                     "flex gap-x-1 font-semibold text-base text-gray-400 hover:text-white duration-500"
                   }
                 >
                   Logout
                   <IconLogout />
-                </RouterLink>
+                </button>
               </li>
             </ul>
           </div>

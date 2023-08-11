@@ -19,7 +19,7 @@ export default function App() {
     if (token) {
       cekToken(token);
     }
-  }, []);
+  });
 
   const cekToken = async (token) => {
     const response = await axios.get(
@@ -38,11 +38,11 @@ export default function App() {
     <Router>
       <Routes>
         <Route element={<RequireAuth />}>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/profile/:username" element={<Profile />}></Route>
+          <Route path="" element={<Home />}></Route>
+          <Route path="profile/:username" element={<Profile />}></Route>
         </Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/regis" element={<Regis />}></Route>
+        <Route path="login" element={<Login />}></Route>
+        <Route path="regis" element={<Regis />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </Router>
