@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import { apiUrl, headers } from "../api/api";
 
 export default function Navbar() {
   const { auth, setAuth } = useAuth();
@@ -18,11 +19,8 @@ export default function Navbar() {
   const cookies = new Cookies();
 
   const handleLogout = () => {
-    const response = axios.get("https://sgso-invitation.com/api/logout", {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${cookies.get("Authorization")}`,
-      },
+    const response = axios.get(`${apiUrl}logout`, {
+      headers,
     });
     if (response) {
       setAuth(null);

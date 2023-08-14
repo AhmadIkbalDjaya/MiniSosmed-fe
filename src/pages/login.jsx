@@ -4,7 +4,8 @@ import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { AuthContext } from "../context/AuthProvider";
-import InvalideMessage from "../utils/invalide-msg";
+import InvalideMessage from "../components/ui/InvalideMsg";
+import { apiUrl } from "../api/api";
 
 export default function Login() {
   const { auth, setAuth } = useContext(AuthContext);
@@ -23,14 +24,22 @@ export default function Login() {
     e.preventDefault();
 
     axios
-      .post("https://sgso-invitation.com/api/login", {
-        email,
-        password,
-      })
+      .post(
+        `${apiUrl}login`,
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      )
       .then((response) => {
         cookies.set("Authorization", response.data.data.token);
         axios
-          .get("https://sgso-invitation.com/api/authUser", {
+          .get(`${apiUrl}authUser`, {
             headers: {
               Accept: "application/json",
               Authorization: `Bearer ${response.data.data.token}`,

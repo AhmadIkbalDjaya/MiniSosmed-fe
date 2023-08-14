@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Navigate, Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import InvalideMessage from "../utils/invalide-msg";
+import InvalideMessage from "../components/ui/InvalideMsg";
+import { apiUrl } from "../api/api";
 
 export default function Regis() {
   const navigate = useNavigate();
@@ -17,11 +18,16 @@ export default function Regis() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://sgso-invitation.com/api/register",
+        `${apiUrl}register`,
         {
           name,
           email,
           password,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+          },
         }
       );
       // console.log(response.data.responseCode);

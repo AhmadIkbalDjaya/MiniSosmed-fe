@@ -5,21 +5,56 @@ import {
   IconPencil,
   IconThumbUpFilled,
   IconTrash,
+  IconThumbUp,
 } from "@tabler/icons-react";
-import ProfileAvatar from "./profile_avatar";
-import { useState } from "react";
-// import image from "../assets/images/image.jpg";
-import { IconThumbUp } from "@tabler/icons-react";
-import Comment from "./comment";
-import CreateComment from "./create_comment";
-import Modal from "./modal";
+import ProfileAvatar from "./ProfileAvatar";
+import { useContext, useState } from "react";
+import Comment from "./Comment";
+import CreateComment from "./CreateComment";
+import Modal from "./ui/Modal";
+import { updatePost, deletePost, likePost } from "../api/postApi";
+import { AuthContext } from "../context/AuthProvider";
+import InvalideMessage from "./ui/InvalideMsg";
 
-export default function Post({ post }) {
+export default function Post({ post, getPost }) {
+  const { auth } = useContext(AuthContext);
+
   const [showPostOption, setShowPostOption] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [showPostDeleteModal, setShowPostDeleteModal] = useState(false);
   const [showPostEditModal, setShowPostEditModal] = useState(false);
 
+  const [body, setBody] = useState(post.body);
+  const [errors, setErrors] = useState();
+
+  const handleDeletePost = async () => {
+    const response = await deletePost(post.id);
+    console.log(response);
+    if (response.data.responseCode == 200) {
+      getPost();
+      setShowPostDeleteModal(false);
+    }
+  };
+
+  const handleEditPost = async () => {
+    const response = await updatePost(post.id, { body });
+    if (response.status == 200) {
+      getPost();
+      setShowPostEditModal(false);
+      setErrors();
+    } else if (response.status == 422) {
+      setErrors(response.data.errors);
+    }
+  };
+
+  const handleLike = async () => {
+    const response = await likePost(post.id);
+    if (response.status == 200) {
+      getPost();
+    }
+    // else {
+    // }
+  };
   return (
     <>
       <div className={"bg-white pt-5 rounded shadow relative mb-5"}>
@@ -63,7 +98,10 @@ export default function Post({ post }) {
 
         <main className={""}>
           {/* <div className={"px-4 py-3"}>{post.body}</div> */}
-          <div className={"px-4 py-3"} dangerouslySetInnerHTML={{ __html: post.body }} />
+          <div
+            className={"px-4 py-3"}
+            dangerouslySetInnerHTML={{ __html: post.body }}
+          />
           {post.image && (
             <div>
               <img src={post.image} alt="" />
@@ -74,8 +112,8 @@ export default function Post({ post }) {
         <hr />
 
         <footer className={"flex justify-around my-1"}>
-          <button className={"flex gap-1 mb-1"}>
-            {post.hasLike ? <IconThumbUpFilled /> : <IconThumbUp /> }
+          <button className={"flex gap-1 mb-1"} onClick={handleLike}>
+            {post.hasLike ? <IconThumbUpFilled /> : <IconThumbUp />}
             {post.like_count} Like
           </button>
           <button
@@ -117,7 +155,10 @@ export default function Post({ post }) {
           >
             Cancel
           </button>
-          <button className="px-2 rounded bg-red-600 font-semibold text-white">
+          <button
+            className={"px-2 rounded bg-red-600 font-semibold text-white"}
+            onClick={handleDeletePost}
+          >
             Hapus
           </button>
         </footer>
@@ -135,9 +176,22 @@ export default function Post({ post }) {
         <div className={"p-3"}>
           <div className={"flex gap-2 items-center"}>
             <ProfileAvatar />
-            <h1 className={"font-semibold"}>Ahmad Ikbal Djaya</h1>
+            <h1 className={"font-semibold"}>{auth?.name}</h1>
           </div>
-          <textarea name="" id="" className="w-full border my-3"></textarea>
+          <textarea
+            name="body"
+            id=""
+            className="w-full border my-3"
+            onChange={(e) => {
+              setBody(e.target.value);
+            }}
+          >
+            {body}
+          </textarea>
+          {errors?.body &&
+            errors.body.map((e, i) => (
+              <InvalideMessage key={i}>{e}</InvalideMessage>
+            ))}
           <div>
             <p className={"font-semibold pb-2"}>Upload Gambar</p>
             <input type="file" src="" alt="" />
@@ -147,12 +201,18 @@ export default function Post({ post }) {
         <footer className={"pt-3 px-3 text-end"}>
           <button
             className="px-2 rounded bg-gray-400 font-semibold text-white me-2"
-            onClick={() => setShowPostEditModal(false)}
+            onClick={() => {
+              setShowPostEditModal(false);
+              setBody(post.body);
+            }}
           >
             Cancel
           </button>
-          <button className="px-2 rounded bg-blue-600 font-semibold text-white">
-            Posting
+          <button
+            className={"px-2 rounded bg-amber-400 font-semibold text-white"}
+            onClick={handleEditPost}
+          >
+            Edit Posting
           </button>
         </footer>
       </Modal>

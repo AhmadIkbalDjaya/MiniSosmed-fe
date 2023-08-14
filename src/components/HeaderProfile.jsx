@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import image from "../assets/images/image.jpg";
-import ProfileAvatar from "./profile_avatar";
+import ProfileAvatar from "./ProfileAvatar";
 
 export default function HeaderProfile({ profile }) {
   return (

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import CreatePost from "../components/create_post";
-import Navbar from "../components/navbar";
-import OtherUser from "../components/other_user";
-import Post from "../components/post";
-import { getPostDashboard } from "../api/Post";
+import CreatePost from "../components/CreatePost";
+import Navbar from "../components/Navbar";
+import OtherUser from "../components/OtherUser";
+import Post from "../components/Post";
+import { getPostDashboard } from "../api/postApi";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -21,12 +21,6 @@ export default function Home() {
       console.log(e);
     }
   };
-  // console.log(posts);
-  // const PostList = () => {
-  //   return posts.map((post, i)=>{
-  //     return <Post key={i} />
-  //   })
-  // }
   return (
     <>
       <Navbar />
@@ -38,7 +32,7 @@ export default function Home() {
         <div className={"col-span-8"}>
           <CreatePost getPost={getPost} />
           {posts.map((post, i) => {
-            return <Post key={i} post={post} />;
+            return <Post key={i} post={post} getPost={getPost} />;
           })}
         </div>
         <div className={"col-span-4 hidden md:block"}>

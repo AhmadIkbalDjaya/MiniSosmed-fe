@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import CreatePost from "../components/create_post";
-import HeaderProfile from "../components/header_profile";
-import Navbar from "../components/navbar";
+import CreatePost from "../components/CreatePost";
+import HeaderProfile from "../components/HeaderProfile";
+import Navbar from "../components/Navbar";
 import Post from "../components/post";
 import { useEffect, useState } from "react";
 import { getUserPost } from "../api/postApi";

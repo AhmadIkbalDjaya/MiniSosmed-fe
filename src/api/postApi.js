@@ -25,3 +25,40 @@ export const storePost = async (data) => {
     return error.response;
   }
 };
+
+export const updatePost = async (postId, data) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}post/${postId}?_method=put`,
+      data,
+      {
+        headers: headers,
+      }
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const deletePost = async (postId) => {
+  try {
+    const response = await axios.delete(`${apiUrl}post/${postId}`, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const likePost = async (postId) => {
+  try {
+    const response = await axios.get(`${apiUrl}like/${postId}`, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

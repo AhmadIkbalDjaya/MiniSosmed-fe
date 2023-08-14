@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
-import ProfileAvatar from "./profile_avatar";
-import Modal from "./modal";
+import ProfileAvatar from "./ProfileAvatar";
+import Modal from "./ui/Modal";
 import { AuthContext } from "../context/AuthProvider";
-import InvalideMessage from "../utils/invalide-msg";
+import InvalideMessage from "./ui/InvalideMsg";
 import { storePost } from "../api/postApi";
 
 export default function CreatePost(props) {
@@ -13,7 +12,7 @@ export default function CreatePost(props) {
   const [body, setBody] = useState();
   const [errors, setErrors] = useState();
 
-  const handlePost = async () => {
+  const handleStorePost = async () => {
     const response = await storePost({ body });
     if (response.status == 200) {
       props.getPost();
@@ -22,29 +21,6 @@ export default function CreatePost(props) {
     } else if (response.status == 422) {
       setErrors(response.data.errors);
     }
-    // try {
-    //   const response = await axios.post(
-    //     "https://sgso-invitation.com/api/post",
-    //     {
-    //       body,
-    //     },
-    //     {
-    //       headers: {
-    //         Accept: "application/json",
-    //         Authorization: `Bearer ${new Cookies().get("Authorization")}`,
-    //       },
-    //     }
-    //   );
-    //   if (response.status == 200) {
-    //     props.getPost();
-    //     setShowPostCreateModal(false);
-    //     setErrors();
-    //   }
-    // } catch (error) {
-    //   if (error.response.status == 422) {
-    //     setErrors(error.response.data.errors);
-    //   }
-    // }
   };
   return (
     <>
@@ -99,7 +75,7 @@ export default function CreatePost(props) {
             Cancel
           </button>
           <button
-            onClick={handlePost}
+            onClick={handleStorePost}
             className="px-2 rounded bg-blue-600 font-semibold text-white"
           >
             Posting

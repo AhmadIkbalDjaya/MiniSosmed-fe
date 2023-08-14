@@ -1,4 +1,4 @@
-import ProfileAvatar from "./profile_avatar";
+import ProfileAvatar from "./ProfileAvatar";
 
 export default function OtherUser() {
   return (

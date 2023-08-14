@@ -5,4 +5,5 @@ export const headers = {
   Authorization: `Bearer ${new Cookies().get("Authorization")}`,
 };
 
-export const apiUrl = "https://sgso-invitation.com/api/";
+// export const apiUrl = "https://sgso-invitation.com/api/";
+export const apiUrl = "http://127.0.0.1:8000/api/";
