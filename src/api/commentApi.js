@@ -11,3 +11,14 @@ export const storeComment = async (postId, data) => {
     return error.response;
   }
 };
+
+export const deleteComment = async (commentId) => {
+  try {
+    const response = await axios.delete(`${apiUrl}comment/${commentId}`, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

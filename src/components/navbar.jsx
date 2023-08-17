@@ -22,7 +22,7 @@ export default function Navbar() {
     const response = axios.get(`${apiUrl}logout`, {
       headers,
     });
-    if (response) {
+    if (response.response == 200) {
       setAuth(null);
       cookies.remove("Authorization");
     }

@@ -31,8 +31,8 @@ export default function Home() {
       >
         <div className={"col-span-8"}>
           <CreatePost getPost={getPost} />
-          {posts.map((post, i) => {
-            return <Post key={i} post={post} getPost={getPost} />;
+          {posts.map((post) => {
+            return <Post key={post.id} post={post} getPost={getPost} />;
           })}
         </div>
         <div className={"col-span-4 hidden md:block"}>

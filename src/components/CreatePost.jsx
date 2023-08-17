@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ProfileAvatar from "./ProfileAvatar";
 import Modal from "./ui/Modal";
-import { AuthContext } from "../context/AuthProvider";
 import InvalideMessage from "./ui/InvalideMsg";
 import { storePost } from "../api/postApi";
+import { useAuth } from "../hooks/useAuth";
 
 export default function CreatePost(props) {
   const [showPostCreateModal, setShowPostCreateModal] = useState(false);
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
   const [body, setBody] = useState();
   const [errors, setErrors] = useState();
 
@@ -25,7 +25,7 @@ export default function CreatePost(props) {
   return (
     <>
       <div className={"bg-white mb-4 px-4 py-3 rounded shadow flex gap-3"}>
-        <ProfileAvatar />
+        <ProfileAvatar to={`/profile/${auth?.username}`} />
         <button
           className={
             "bg-gray-100 grow text-start px-3 py-1 rounded-full text-gray-400"

@@ -31,7 +31,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route element={<RequireAuth />}>
-          <Route path="" element={<Home />}></Route>
+          <Route path="/" element={<Home />}></Route>
           <Route path="profile/:username" element={<Profile />}></Route>
         </Route>
         <Route path="login" element={<Login />}></Route>

@@ -7,8 +7,11 @@ import { useEffect, useState } from "react";
 import { getUserPost } from "../api/postApi";
 import { getUserProfile } from "../api/userApi";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Profile() {
+  const { auth } = useAuth();
+
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState();
   const { username } = useParams();
@@ -16,7 +19,7 @@ export default function Profile() {
   useEffect(() => {
     getPost();
     getProfile();
-  }, []);
+  });
 
   const getPost = async () => {
     try {
@@ -38,7 +41,6 @@ export default function Profile() {
   return (
     <>
       <Navbar />
-      {/* {profile ? <HeaderProfile profile={profile} /> : ""} */}
       <HeaderProfile profile={profile} />
 
       <main
@@ -83,7 +85,8 @@ export default function Profile() {
           </div>
         </div>
         <div className={"col-span-7"}>
-          <CreatePost />
+          {auth?.username == username ? <CreatePost /> : ""}
+
           {posts.map((post, i) => {
             return <Post key={i} post={post} />;
           })}

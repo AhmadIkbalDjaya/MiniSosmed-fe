@@ -8,16 +8,17 @@ import {
   IconThumbUp,
 } from "@tabler/icons-react";
 import ProfileAvatar from "./ProfileAvatar";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Comment from "./Comment";
 import CreateComment from "./CreateComment";
 import Modal from "./ui/Modal";
 import { updatePost, deletePost, likePost } from "../api/postApi";
-import { AuthContext } from "../context/AuthProvider";
 import InvalideMessage from "./ui/InvalideMsg";
+import { useAuth } from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function Post({ post, getPost }) {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
 
   const [showPostOption, setShowPostOption] = useState(false);
   const [showComment, setShowComment] = useState(false);
@@ -59,41 +60,47 @@ export default function Post({ post, getPost }) {
     <>
       <div className={"bg-white pt-5 rounded shadow relative mb-5"}>
         <header className={"px-4 flex items-center justify-between"}>
-          <ProfileAvatar />
+          <ProfileAvatar to={`/profile/${post?.username}`} />
           <div className={"px-5 grow"}>
-            <h1 className={"font-bold"}>{post.name}</h1>
+            <Link to={`/profile/${post?.username}`}>
+              <h1 className={"font-bold"}>{post.name}</h1>
+            </Link>
             <h6 className={"text-gray-500 text-sm"}>{post.updated_at}</h6>
           </div>
-          <div
-            className={"me-3 relative"}
-            onClick={() => setShowPostOption(!showPostOption)}
-          >
-            <IconDots size={18} />
-            {showPostOption ? (
-              <div
-                className={
-                  "bg-white shadow-md absolute px-3 py-2 top-6 md:left-[-75px] right-[10px] w-max rounded"
-                }
-              >
-                <button
-                  className={"flex gap-1 my-1"}
-                  onClick={() => setShowPostEditModal(true)}
+          {auth?.id == post.user_id ? (
+            <div
+              className={"me-3 relative"}
+              onClick={() => setShowPostOption(!showPostOption)}
+            >
+              <IconDots size={18} className={"cursor-pointer"} />
+              {showPostOption ? (
+                <div
+                  className={
+                    "bg-white shadow-md absolute px-3 py-2 top-6 md:left-[-75px] right-[10px] w-max rounded"
+                  }
                 >
-                  <IconPencil />
-                  Edit Postingan
-                </button>
-                <button
-                  className={"flex gap-1 my-1 text-red-600"}
-                  onClick={() => setShowPostDeleteModal(!showPostDeleteModal)}
-                >
-                  <IconTrash />
-                  Hapus Postingan
-                </button>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
+                  <button
+                    className={"flex gap-1 my-1"}
+                    onClick={() => setShowPostEditModal(true)}
+                  >
+                    <IconPencil />
+                    Edit Postingan
+                  </button>
+                  <button
+                    className={"flex gap-1 my-1 text-red-600"}
+                    onClick={() => setShowPostDeleteModal(!showPostDeleteModal)}
+                  >
+                    <IconTrash />
+                    Hapus Postingan
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          ) : (
+            ""
+          )}
         </header>
 
         <main className={""}>
@@ -126,11 +133,17 @@ export default function Post({ post, getPost }) {
         {showComment ? (
           <div className={"relative bg-white w-full px-4 rounded-b"}>
             <div className={"max-h-[200px] overflow-auto"}>
-              {post.comments.map((comment, i) => {
-                return <Comment key={i} comment={comment} />;
+              {post.comments.map((comment) => {
+                return (
+                  <Comment
+                    key={comment.id}
+                    comment={comment}
+                    getPost={getPost}
+                  />
+                );
               })}
             </div>
-            <CreateComment />
+            <CreateComment postId={post.id} getPost={getPost} />
           </div>
         ) : (
           ""
