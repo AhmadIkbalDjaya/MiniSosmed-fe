@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import {
   IconHome2,
   IconLogout,
@@ -16,7 +16,10 @@ import { apiUrl, headers } from "../api/api";
 export default function Navbar() {
   const { auth, setAuth } = useAuth();
   const [open, setOpen] = useState(false);
+  const { search } = useParams();
+  const [name, setName] = useState(search ?? "");
   const cookies = new Cookies();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     const response = axios.get(`${apiUrl}logout`, {
@@ -26,6 +29,9 @@ export default function Navbar() {
       setAuth(null);
       cookies.remove("Authorization");
     }
+  };
+  const handleSearch = () => {
+    navigate(`/search/${name}`)
   };
   return (
     <>
@@ -63,21 +69,27 @@ export default function Navbar() {
             }`}
           >
             <div className={"flex justify-between"}>
-              <input
-                type="text"
-                name="search"
-                id=""
-                placeholder="Search User"
-                className={
-                  "px-2 py-1 border-0 outline-0 rounded me-2 grow w-100"
-                }
-              />
-              <button
-                type="submit"
-                className={"border rounded px-3 py-1 text-white"}
-              >
-                Search
-              </button>
+              <form onSubmit={handleSearch}>
+                <input
+                  type="text"
+                  name="search"
+                  id=""
+                  placeholder="Search User"
+                  className={
+                    "px-2 py-1 border-0 outline-0 rounded me-2 grow w-100"
+                  }
+                  defaultValue={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                />
+                <button
+                  type="submit"
+                  className={"border rounded px-3 py-1 text-white"}
+                >
+                  Search
+                </button>
+              </form>
             </div>
             <ul className={"md:flex gap-3 "}>
               <li className={"my-3 md:my-0"}>

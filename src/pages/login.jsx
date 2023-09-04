@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useContext, useEffect, useState } from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { AuthContext } from "../context/AuthProvider";
@@ -20,9 +20,12 @@ export default function Login() {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
+  if (auth) {
+    return <Navigate to="/" />;
+  }
   const handleLogin = (e) => {
     e.preventDefault();
-    
+
     axios
       .post(
         `${apiUrl}login`,
@@ -51,7 +54,6 @@ export default function Login() {
           });
       })
       .catch((error) => {
-        // console.log(error.response.data.responseCode);
         if (error.response.data.responseCode == 422) {
           setErrors(error.response.data.errors);
         }
@@ -59,12 +61,11 @@ export default function Login() {
           setErrors({});
           setMessage(error.response.data.responseMessage);
         }
-        // console.log(error.response.data.errors);
       });
   };
-  useEffect(() => {
-    auth && navigate("/");
-  });
+  // useEffect(() => {
+  //   auth && navigate("/");
+  // });
   return (
     <div className={"flex flex-wrap items-center justify-center min-h-screen"}>
       <div>

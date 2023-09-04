@@ -10,22 +10,28 @@ import { useEffect } from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { apiUrl, headers } from "./api/api";
+import Followers from "./pages/Followers";
+import Following from "./pages/Following";
+import Search from "./pages/Search";
 
 export default function App() {
   const { setAuth } = useAuth();
+  const cookies = new Cookies();
   useEffect(() => {
-    const token = new Cookies().get("Authorization");
+    const token = cookies.get("Authorization");
     if (token) {
-      cekToken();
+      axios
+        .get(`${apiUrl}authUser`, { headers })
+        .then((response) => {
+          setAuth(response.data.data.user);
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch((error) => {
+          cookies.remove("Authorization");
+          setAuth(null);
+        });
     }
-  });
-
-  const cekToken = async () => {
-    const response = await axios.get(`${apiUrl}authUser`, {
-      headers,
-    });
-    setAuth(response.data.data.user);
-  };
+  }, []);
   return (
     // <AuthProvider>
     <Router>
@@ -33,6 +39,9 @@ export default function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Home />}></Route>
           <Route path="profile/:username" element={<Profile />}></Route>
+          <Route path="followers/:username" element={<Followers />} />
+          <Route path="following/:username" element={<Following />} />
+          <Route path="search/:search" element={<Search />}></Route>
         </Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="regis" element={<Regis />}></Route>

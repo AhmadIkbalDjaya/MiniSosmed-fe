@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
 import image from "../assets/images/image.jpg";
 import ProfileAvatar from "./ProfileAvatar";
+import { useAuth } from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function HeaderProfile({ profile }) {
+  const { auth } = useAuth();
+
   return (
     <>
       <header className="border-box md:mx-12 md:px-12 px-0 mt-12 pt-1">
         <div className="w-full">
           <img
-            src={image}
+            srcSet={image}
             alt=""
             className={"w-full lg:h-[365px] md:h-[265px] h-[200px]"}
           />
@@ -22,19 +26,31 @@ export default function HeaderProfile({ profile }) {
           <div className={"grow text-center"}>
             <h1 className={"text-2xl font-bold"}>{profile?.name}</h1>
             <div className={"pt-3 flex justify-center"}>
-              <button className={"border mx-3 px-2 rounded"}>
+              <Link
+                to={`/followers/${profile?.username}`}
+                className={"border mx-3 px-2 rounded"}
+              >
                 {profile?.followers} Pengikut
-              </button>
-              <button className={"border mx-3 px-2 rounded"}>{profile?.follows} Diikuti</button>
+              </Link>
+              <Link
+                to={`/following/${profile?.username}`}
+                className={"border mx-3 px-2 rounded"}
+              >
+                {profile?.follows} Diikuti
+              </Link>
             </div>
           </div>
-          <button
-            className={
-              "bg-blue-600 h-fit px-3 py-2 rounded text-white font-semibold w-full md:w-fit"
-            }
-          >
-            Edit Image
-          </button>
+          {profile?.username == auth.username ? (
+            <button
+              className={
+                "bg-blue-600 h-fit px-3 py-2 rounded text-white font-semibold w-full md:w-fit"
+              }
+            >
+              Edit Image
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </header>
     </>

@@ -62,8 +62,8 @@ export default function Post({ post, getPost }) {
         <header className={"px-4 flex items-center justify-between"}>
           <ProfileAvatar to={`/profile/${post?.username}`} />
           <div className={"px-5 grow"}>
-            <Link to={`/profile/${post?.username}`}>
-              <h1 className={"font-bold"}>{post.name}</h1>
+            <Link to={`/profile/${post?.username}`} className={"font-bold"}>
+              {post.name}
             </Link>
             <h6 className={"text-gray-500 text-sm"}>{post.updated_at}</h6>
           </div>
