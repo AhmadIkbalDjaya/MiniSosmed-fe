@@ -14,11 +14,11 @@ import CreateComment from "./CreateComment";
 import Modal from "./ui/Modal";
 import { updatePost, deletePost, likePost } from "../api/postApi";
 import InvalideMessage from "./ui/InvalideMsg";
-import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Post({ post, getPost }) {
-  const { auth } = useAuth();
+  const auth = useSelector((state) => state.auth);
 
   const [showPostOption, setShowPostOption] = useState(false);
   const [showComment, setShowComment] = useState(false);
@@ -53,8 +53,6 @@ export default function Post({ post, getPost }) {
     if (response.status == 200) {
       getPost();
     }
-    // else {
-    // }
   };
   return (
     <>
@@ -202,8 +200,8 @@ export default function Post({ post, getPost }) {
             {body}
           </textarea>
           {errors?.body &&
-            errors.body.map((e, i) => (
-              <InvalideMessage key={i}>{e}</InvalideMessage>
+            errors.body.map((e) => (
+              <InvalideMessage key={e}>{e}</InvalideMessage>
             ))}
           <div>
             <p className={"font-semibold pb-2"}>Upload Gambar</p>

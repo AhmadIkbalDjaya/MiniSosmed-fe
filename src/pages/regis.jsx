@@ -1,12 +1,12 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import InvalideMessage from "../components/ui/InvalideMsg";
 import { apiUrl } from "../api/api";
+import { useSelector } from "react-redux";
 
 export default function Regis() {
+  const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const [name, setName] = useState();
@@ -17,7 +17,7 @@ export default function Regis() {
   const handleRegis = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      await axios.post(
         `${apiUrl}register`,
         {
           name,
@@ -30,13 +30,14 @@ export default function Regis() {
           },
         }
       );
-      // console.log(response.data.responseCode);
-      navigate("/login");
+      navigate("/login", { replace: true });
     } catch (error) {
-      // console.log(error.response.data.errors);
       setErrors(error.response.data.errors);
     }
   };
+  if (auth.status) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className={"flex flex-wrap items-center justify-center min-h-screen"}>
@@ -62,8 +63,8 @@ export default function Regis() {
               }}
             />
             {errors?.name &&
-              errors.name.map((error, index) => (
-                <InvalideMessage key={index}>{error}</InvalideMessage>
+              errors.name.map((error) => (
+                <InvalideMessage key={error}>{error}</InvalideMessage>
               ))}
             <input
               type="text"
@@ -78,8 +79,8 @@ export default function Regis() {
               }}
             />
             {errors?.email &&
-              errors.email.map((error, index) => (
-                <InvalideMessage key={index}>{error}</InvalideMessage>
+              errors.email.map((error) => (
+                <InvalideMessage key={error}>{error}</InvalideMessage>
               ))}
             <input
               type="password"
@@ -94,8 +95,8 @@ export default function Regis() {
               }}
             />
             {errors?.password &&
-              errors.password.map((error, index) => (
-                <InvalideMessage key={index}>{error}</InvalideMessage>
+              errors.password.map((error) => (
+                <InvalideMessage key={error}>{error}</InvalideMessage>
               ))}
             <button
               type="submit"
@@ -107,9 +108,9 @@ export default function Regis() {
             </button>
             <p className={"text-center text-sm text-gray-500"}>
               Sudah Punya Akun? &nbsp;
-              <RouterLink to={"/login"} className={"text-blue-300"}>
+              <Link to={"/login"} className={"text-blue-300"}>
                 Login Sekarang!
-              </RouterLink>
+              </Link>
             </p>
           </form>
         </div>

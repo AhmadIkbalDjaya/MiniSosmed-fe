@@ -5,35 +5,12 @@ import NotFound from "./pages/handle/NotFound";
 import Login from "./pages/Login";
 import Regis from "./pages/regis";
 import { RequireAuth } from "./RequireAuth";
-import { useAuth } from "./hooks/useAuth";
-import { useEffect } from "react";
-import Cookies from "universal-cookie";
-import axios from "axios";
-import { apiUrl, headers } from "./api/api";
 import Followers from "./pages/Followers";
 import Following from "./pages/Following";
 import Search from "./pages/Search";
 
 export default function App() {
-  const { setAuth } = useAuth();
-  const cookies = new Cookies();
-  useEffect(() => {
-    const token = cookies.get("Authorization");
-    if (token) {
-      axios
-        .get(`${apiUrl}authUser`, { headers })
-        .then((response) => {
-          setAuth(response.data.data.user);
-        })
-        // eslint-disable-next-line no-unused-vars
-        .catch((error) => {
-          cookies.remove("Authorization");
-          setAuth(null);
-        });
-    }
-  }, []);
   return (
-    // <AuthProvider>
     <Router>
       <Routes>
         <Route element={<RequireAuth />}>
@@ -48,6 +25,5 @@ export default function App() {
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </Router>
-    // </AuthProvider>
   );
 }

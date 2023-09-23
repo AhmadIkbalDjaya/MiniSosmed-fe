@@ -1,14 +1,13 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import ProfileAvatar from "./ProfileAvatar";
 import Modal from "./ui/Modal";
 import InvalideMessage from "./ui/InvalideMsg";
 import { storePost } from "../api/postApi";
-import { useAuth } from "../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 export default function CreatePost(props) {
   const [showPostCreateModal, setShowPostCreateModal] = useState(false);
-  const { auth } = useAuth();
+  const auth= useSelector((state) => state.auth);
   const [body, setBody] = useState();
   const [errors, setErrors] = useState();
 
@@ -25,14 +24,14 @@ export default function CreatePost(props) {
   return (
     <>
       <div className={"bg-white mb-4 px-4 py-3 rounded shadow flex gap-3"}>
-        <ProfileAvatar to={`/profile/${auth?.username}`} />
+        <ProfileAvatar to={`/profile/${auth.username}`} />
         <button
           className={
             "bg-gray-100 grow text-start px-3 py-1 rounded-full text-gray-400"
           }
           onClick={() => setShowPostCreateModal(true)}
         >
-          Apa yang sedang anda pikirkan, {auth?.name}?
+          Apa yang sedang anda pikirkan, {auth.name}?
         </button>
       </div>
 
@@ -47,7 +46,7 @@ export default function CreatePost(props) {
         <div className={"p-3"}>
           <div className={"flex gap-2 items-center"}>
             <ProfileAvatar />
-            <h1 className={"font-semibold"}>{auth?.name}</h1>
+            <h1 className={"font-semibold"}>{auth.name}</h1>
           </div>
           <textarea
             name="body"

@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import image from "../assets/images/image.jpg";
 import ProfileAvatar from "./ProfileAvatar";
-import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function HeaderProfile({ profile }) {
-  const { auth } = useAuth();
+  const auth = useSelector((state) => state.auth);
 
   return (
     <>

@@ -12,13 +12,13 @@ import {
   userFollowing,
 } from "../api/userApi";
 import { Link, useParams } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 import Modal from "../components/ui/Modal";
 import ProfileAvatar from "../components/ProfileAvatar";
 import UserBox from "../components/UserBox";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
-  const { auth } = useAuth();
+  const auth = useSelector((state) => state.auth);
 
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState();
@@ -132,7 +132,7 @@ export default function Profile() {
               {followers.length} Pengikut
             </h2>
             <div className={"flex flex-wrap gap-5 justify-evenly my-3"}>
-              {followers.slice(0,6).map((follower) => {
+              {followers.slice(0, 6).map((follower) => {
                 return <UserBox key={follower.id} user={follower} />;
               })}
               <Link
@@ -148,7 +148,7 @@ export default function Profile() {
               {following.length} Diikuti
             </h2>
             <div className={"flex flex-wrap gap-5 justify-evenly my-3"}>
-              {following.slice(0,6).map((follow) => {
+              {following.slice(0, 6).map((follow) => {
                 return <UserBox key={follow.id} user={follow} />;
               })}
               <Link

@@ -4,11 +4,11 @@ import ProfileAvatar from "./ProfileAvatar";
 import { useState } from "react";
 import Modal from "./ui/Modal";
 import { deleteComment } from "../api/commentApi";
-import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Comment({ comment, getPost }) {
-  const { auth } = useAuth();
+  const auth = useSelector((state) => state.auth);
 
   const [commentOption, setCommentOption] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);

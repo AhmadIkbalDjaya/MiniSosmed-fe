@@ -8,30 +8,30 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
-import Cookies from "universal-cookie";
 import axios from "axios";
 import { apiUrl, headers } from "../api/api";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteAuth } from "../redux/slices/authSlice";
 
 export default function Navbar() {
-  const { auth, setAuth } = useAuth();
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const { search } = useParams();
   const [name, setName] = useState(search ?? "");
-  const cookies = new Cookies();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  const handleLogout = () => {
-    const response = axios.get(`${apiUrl}logout`, {
+  const handleLogout = async () => {
+    const response = await axios.get(`${apiUrl}logout`, {
       headers,
     });
-    if (response.response == 200) {
-      setAuth(null);
-      cookies.remove("Authorization");
+    if (response.status == 200) {
+      dispatch(deleteAuth());
+      navigate("/login", { replace: true });
     }
   };
   const handleSearch = () => {
-    navigate(`/search/${name}`)
+    navigate(`/search/${name}`);
   };
   return (
     <>

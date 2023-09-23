@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import ProfileAvatar from "./ProfileAvatar";
 import { storeComment } from "../api/commentApi";
-import { useAuth } from "../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 export default function CreateCommentBox({ postId, getPost }) {
-  const { auth } = useAuth();
+  const auth = useSelector((state) => state.auth);
   const [body, setBody] = useState("");
   const handleComment = async (e) => {
     e.preventDefault();
