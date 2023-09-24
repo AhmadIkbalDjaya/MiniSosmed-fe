@@ -1,12 +1,11 @@
-/* eslint-disable react/prop-types */
 import defaultProfileImage from "../assets/images/default-profile.jpg";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function ProfileAvatar(props) {
   const withh = props.width ? props.width : "35px";
   const heigthh = props.heigth ? props.heigth : "35px";
   return (
-    <RouterLink to={props.to} className={"pointer"}>
+    <Link to={props.to} className={"pointer"}>
       <div {...props}>
         <img
           src={defaultProfileImage}
@@ -16,6 +15,6 @@ export default function ProfileAvatar(props) {
           height={heigthh}
         />
       </div>
-    </RouterLink>
+    </Link>
   );
 }

@@ -2,7 +2,6 @@
 import CreatePost from "../components/CreatePost";
 import HeaderProfile from "../components/HeaderProfile";
 import Navbar from "../components/Navbar";
-import Post from "../components/post";
 import { useEffect, useState } from "react";
 import { getUserPost } from "../services/post.service";
 import {
@@ -16,6 +15,7 @@ import Modal from "../components/ui/Modal";
 import ProfileAvatar from "../components/ProfileAvatar";
 import UserBox from "../components/UserBox";
 import { useSelector } from "react-redux";
+import PostList from "../components/PostList";
 
 export default function Profile() {
   const auth = useSelector((state) => state.auth);
@@ -161,10 +161,7 @@ export default function Profile() {
         </div>
         <div className={"col-span-7"}>
           {auth?.username == username ? <CreatePost getPost={getPost} /> : ""}
-
-          {posts.map((post) => {
-            return <Post key={post.id} post={post} getPost={getPost} />;
-          })}
+          <PostList posts={posts} getData={getPost} />
         </div>
       </main>
       {/* Edit Bio Modal */}

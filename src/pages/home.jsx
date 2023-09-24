@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import CreatePost from "../components/CreatePost";
 import Navbar from "../components/Navbar";
 import OtherUser from "../components/OtherUser";
-import Post from "../components/post";
 import { getPostDashboard } from "../services/post.service";
+import PostList from "../components/PostList";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -31,9 +31,7 @@ export default function Home() {
       >
         <div className={"col-span-8"}>
           <CreatePost getPost={getPost} />
-          {posts.map((post) => {
-            return <Post key={post.id} post={post} getPost={getPost} />;
-          })}
+          <PostList posts={posts} getData={getPost} />
         </div>
         <div className={"col-span-4 hidden md:block"}>
           <h1 className={"font-semibold text-gray-500"}>
