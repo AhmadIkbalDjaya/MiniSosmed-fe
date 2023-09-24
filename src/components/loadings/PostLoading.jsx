@@ -1,5 +1,3 @@
-import ProfileAvatar from "../ProfileAvatar";
-
 export default function PostLoading() {
   return (
     <>

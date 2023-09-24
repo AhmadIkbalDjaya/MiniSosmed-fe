@@ -56,9 +56,9 @@ export default function Post({ post, getPost }) {
     <>
       <div className={"bg-white pt-5 rounded shadow relative mb-5"}>
         <header className={"px-4 flex items-center justify-between"}>
-          <ProfileAvatar to={`/profile/${post?.username}`} />
+          <ProfileAvatar to={`/profile/${post.username}`} />
           <div className={"px-5 grow"}>
-            <Link to={`/profile/${post?.username}`} className={"font-bold"}>
+            <Link to={`/profile/${post.username}`} className={"font-bold"}>
               {post.name}
             </Link>
             <h6 className={"text-gray-500 text-sm"}>{post.updated_at}</h6>
@@ -100,7 +100,6 @@ export default function Post({ post, getPost }) {
         </header>
 
         <main className={""}>
-          {/* <div className={"px-4 py-3"}>{post.body}</div> */}
           <div
             className={"px-4 py-3"}
             dangerouslySetInnerHTML={{ __html: post.body }}

@@ -16,11 +16,11 @@ export default function PostList(props) {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     getPost();
   }, [username]);
 
   const getPost = async () => {
-    setLoading(true);
     try {
       let response;
       if (page == "home") {
