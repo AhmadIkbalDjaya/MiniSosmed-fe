@@ -1,13 +1,12 @@
-/* eslint-disable react/prop-types */
 import { IconDots, IconTrash } from "@tabler/icons-react";
 import ProfileAvatar from "./ProfileAvatar";
 import { useState } from "react";
 import Modal from "./ui/Modal";
-import { deleteComment } from "../api/commentApi";
+import { deleteComment } from "../services/comment.service";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function Comment({ comment, getPost }) {
+export default function Comment({ comment, getData }) {
   const auth = useSelector((state) => state.auth);
 
   const [commentOption, setCommentOption] = useState(false);
@@ -16,7 +15,7 @@ export default function Comment({ comment, getPost }) {
   const handleDelete = async () => {
     const response = await deleteComment(comment.id);
     if (response.status == 200) {
-      await getPost();
+      await getData();
       setDeleteModal(false);
     }
   };
@@ -38,9 +37,9 @@ export default function Comment({ comment, getPost }) {
             </Link>
             <p className={"text-sm"}>{comment.body}</p>
           </div>
-          <span className={"text-xs text-gray-500"}>18 detik yang lalu</span>
+          <span className={"text-xs text-gray-500"}>{comment.created_at}</span>
         </div>
-        {auth?.id == comment.user_id ? (
+        {auth.user_id == comment.user_id ? (
           <div
             className={"pt-2 relative"}
             onClick={() => {

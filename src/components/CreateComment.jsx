@@ -1,17 +1,17 @@
 import { useState } from "react";
 import ProfileAvatar from "./ProfileAvatar";
-import { storeComment } from "../api/commentApi";
+import { storeComment } from "../services/comment.service";
 import { useSelector } from "react-redux";
 
-export default function CreateCommentBox({ postId, getPost }) {
+export default function CreateCommentBox({ postId, getData }) {
   const auth = useSelector((state) => state.auth);
   const [body, setBody] = useState("");
   const handleComment = async (e) => {
     e.preventDefault();
     if (body != "") {
       const response = await storeComment(postId, { body });
-      if (response.status == 200) {
-        await getPost();
+      if (response.status == 201) {
+        await getData();
         setBody("");
       }
     }

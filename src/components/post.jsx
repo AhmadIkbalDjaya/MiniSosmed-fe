@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import {
   IconDots,
   IconMessage2,
@@ -9,13 +8,12 @@ import {
 } from "@tabler/icons-react";
 import ProfileAvatar from "./ProfileAvatar";
 import { useState } from "react";
-import Comment from "./Comment";
-import CreateComment from "./CreateComment";
 import Modal from "./ui/Modal";
-import { updatePost, deletePost, likePost } from "../api/postApi";
+import { updatePost, deletePost, likePost } from "../services/post.service";
 import InvalideMessage from "./ui/InvalideMsg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CommentList from "./CommentList";
 
 export default function Post({ post, getPost }) {
   const auth = useSelector((state) => state.auth);
@@ -32,7 +30,7 @@ export default function Post({ post, getPost }) {
     const response = await deletePost(post.id);
     console.log(response);
     if (response.data.responseCode == 200) {
-      getPost();
+      await getPost();
       setShowPostDeleteModal(false);
     }
   };
@@ -65,7 +63,7 @@ export default function Post({ post, getPost }) {
             </Link>
             <h6 className={"text-gray-500 text-sm"}>{post.updated_at}</h6>
           </div>
-          {auth?.id == post.user_id ? (
+          {auth.user_id == post.user_id ? (
             <div
               className={"me-3 relative"}
               onClick={() => setShowPostOption(!showPostOption)}
@@ -128,24 +126,7 @@ export default function Post({ post, getPost }) {
             <IconMessage2 /> {post.comment_count} Comment
           </button>
         </footer>
-        {showComment ? (
-          <div className={"relative bg-white w-full px-4 rounded-b"}>
-            <div className={"max-h-[200px] overflow-auto"}>
-              {post.comments.map((comment) => {
-                return (
-                  <Comment
-                    key={comment.id}
-                    comment={comment}
-                    getPost={getPost}
-                  />
-                );
-              })}
-            </div>
-            <CreateComment postId={post.id} getPost={getPost} />
-          </div>
-        ) : (
-          ""
-        )}
+        {showComment ? <CommentList post_id={post.id} /> : ""}
       </div>
       {/* modal delete post */}
       <Modal
@@ -196,9 +177,8 @@ export default function Post({ post, getPost }) {
             onChange={(e) => {
               setBody(e.target.value);
             }}
-          >
-            {body}
-          </textarea>
+            defaultValue={body}
+          ></textarea>
           {errors?.body &&
             errors.body.map((e) => (
               <InvalideMessage key={e}>{e}</InvalideMessage>

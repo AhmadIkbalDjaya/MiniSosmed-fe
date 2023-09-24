@@ -4,13 +4,13 @@ import HeaderProfile from "../components/HeaderProfile";
 import Navbar from "../components/Navbar";
 import Post from "../components/post";
 import { useEffect, useState } from "react";
-import { getUserPost } from "../api/postApi";
+import { getUserPost } from "../services/post.service";
 import {
   getUserProfile,
   updateBio,
   userFollowers,
   userFollowing,
-} from "../api/userApi";
+} from "../services/user.service";
 import { Link, useParams } from "react-router-dom";
 import Modal from "../components/ui/Modal";
 import ProfileAvatar from "../components/ProfileAvatar";
@@ -160,10 +160,10 @@ export default function Profile() {
           </div>
         </div>
         <div className={"col-span-7"}>
-          {auth?.username == username ? <CreatePost /> : ""}
+          {auth?.username == username ? <CreatePost getPost={getPost} /> : ""}
 
           {posts.map((post) => {
-            return <Post key={post.id} post={post} />;
+            return <Post key={post.id} post={post} getPost={getPost} />;
           })}
         </div>
       </main>

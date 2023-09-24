@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import InvalideMessage from "../components/ui/InvalideMsg";
-import { apiUrl } from "../api/api";
+import { apiUrl } from "../services/api";
 import { useSelector } from "react-redux";
 
 export default function Regis() {

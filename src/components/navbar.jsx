@@ -9,7 +9,7 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 import axios from "axios";
-import { apiUrl, headers } from "../api/api";
+import { apiUrl, headers } from "../services/api";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteAuth } from "../redux/slices/authSlice";
 

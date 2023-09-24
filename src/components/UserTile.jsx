@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { followUser } from "../api/userApi";
+import { followUser } from "../services/user.service";
 import ProfileAvatar from "./ProfileAvatar";
 
 export default function UserTile({ user, fetchData }) {

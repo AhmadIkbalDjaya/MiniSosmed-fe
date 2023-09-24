@@ -2,12 +2,12 @@ import { useState } from "react";
 import ProfileAvatar from "./ProfileAvatar";
 import Modal from "./ui/Modal";
 import InvalideMessage from "./ui/InvalideMsg";
-import { storePost } from "../api/postApi";
+import { storePost } from "../services/post.service";
 import { useSelector } from "react-redux";
 
 export default function CreatePost(props) {
   const [showPostCreateModal, setShowPostCreateModal] = useState(false);
-  const auth= useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
   const [body, setBody] = useState();
   const [errors, setErrors] = useState();
 
@@ -57,8 +57,8 @@ export default function CreatePost(props) {
             }}
           ></textarea>
           {errors?.body &&
-            errors.body.map((e, i) => (
-              <InvalideMessage key={i}>{e}</InvalideMessage>
+            errors.body.map((e) => (
+              <InvalideMessage key={e}>{e}</InvalideMessage>
             ))}
           <div>
             <p className={"font-semibold pb-2"}>Upload Gambar</p>

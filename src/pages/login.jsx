@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import {
   Link,
@@ -7,7 +6,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import InvalideMessage from "../components/ui/InvalideMsg";
-import { apiUrl } from "../api/api";
+import { apiUrl } from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuth } from "../redux/slices/authSlice";
 

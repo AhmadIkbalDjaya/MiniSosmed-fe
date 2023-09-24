@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import HeaderProfile from "../components/HeaderProfile";
 import { useParams } from "react-router-dom";
-import { getUserProfile, userFollowers } from "../api/userApi";
+import { getUserProfile, userFollowers } from "../services/user.service";
 import UserTile from "../components/UserTile";
 
 export default function Followers() {
@@ -32,7 +32,7 @@ export default function Followers() {
       <main className={"min-h-[93vh] border-box md:mx-12 md:px-12 my-10"}>
         <p className={"text-2xl font-semibold"}>{followers.length} Pengikut</p>
         {followers.map((user) => (
-          <UserTile key={user.id} user={user} fetchData={getFollowers}/>
+          <UserTile key={user.id} user={user} fetchData={getFollowers} />
         ))}
       </main>
     </>

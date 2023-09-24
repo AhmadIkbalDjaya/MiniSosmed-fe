@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import CreatePost from "../components/CreatePost";
 import Navbar from "../components/Navbar";
 import OtherUser from "../components/OtherUser";
-import Post from "../components/Post";
-import { getPostDashboard } from "../api/postApi";
+import Post from "../components/post";
+import { getPostDashboard } from "../services/post.service";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);

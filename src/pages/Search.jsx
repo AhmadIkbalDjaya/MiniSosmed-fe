@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
-import { searhUser } from "../api/userApi";
+import { searhUser } from "../services/user.service";
 import UserTile from "../components/UserTile";
 
 export default function Search() {
