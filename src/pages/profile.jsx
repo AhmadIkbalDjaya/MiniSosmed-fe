@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-import CreatePost from "../components/CreatePost";
 import HeaderProfile from "../components/HeaderProfile";
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
-import { getUserPost } from "../services/post.service";
 import {
   getUserProfile,
   updateBio,
@@ -20,7 +18,6 @@ import PostList from "../components/PostList";
 export default function Profile() {
   const auth = useSelector((state) => state.auth);
 
-  const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState();
   const { username } = useParams();
   const [followers, setFollowers] = useState([]);
@@ -31,15 +28,6 @@ export default function Profile() {
   const [birthday, setBirthday] = useState();
   const [gender, setGender] = useState();
   const [address, setAddress] = useState();
-
-  const getPost = async () => {
-    try {
-      const response = await getUserPost(username);
-      setPosts(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const getProfile = async () => {
     const response = await getUserProfile(username);
@@ -68,7 +56,6 @@ export default function Profile() {
     }
   };
   useEffect(() => {
-    getPost();
     getProfile();
     getFollowers();
     getFollowing();
@@ -160,8 +147,7 @@ export default function Profile() {
           </div>
         </div>
         <div className={"col-span-7"}>
-          {auth?.username == username ? <CreatePost getPost={getPost} /> : ""}
-          <PostList posts={posts} getData={getPost} />
+          <PostList page="profil" username={username} />
         </div>
       </main>
       {/* Edit Bio Modal */}

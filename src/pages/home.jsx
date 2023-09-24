@@ -1,26 +1,14 @@
-import { useEffect, useState } from "react";
-import CreatePost from "../components/CreatePost";
+import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import OtherUser from "../components/OtherUser";
-import { getPostDashboard } from "../services/post.service";
 import PostList from "../components/PostList";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    getPost();
     document.title = "Minsos";
   }, []);
 
-  const getPost = async () => {
-    try {
-      const response = await getPostDashboard();
-      setPosts(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
   return (
     <>
       <Navbar />
@@ -30,8 +18,7 @@ export default function Home() {
         }
       >
         <div className={"col-span-8"}>
-          <CreatePost getPost={getPost} />
-          <PostList posts={posts} getData={getPost} />
+          <PostList />
         </div>
         <div className={"col-span-4 hidden md:block"}>
           <h1 className={"font-semibold text-gray-500"}>
