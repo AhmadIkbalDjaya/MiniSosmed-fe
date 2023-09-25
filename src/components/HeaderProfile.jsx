@@ -49,7 +49,9 @@ export default function HeaderProfile({ profile }) {
               Edit Image
             </button>
           ) : (
-            ""
+            <button className="bg-blue-600 h-fit px-3 py-2 rounded text-white font-semibold w-full md:w-fit">
+              {profile?.has_follow ? "Unfollow" : "Follow"}
+            </button>
           )}
         </div>
       </header>

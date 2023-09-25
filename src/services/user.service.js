@@ -64,3 +64,14 @@ export const followUser = async (username) => {
     return error.response;
   }
 };
+
+export const friend_suggest = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}friend_suggest`, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

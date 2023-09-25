@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import PostLoading from "./loadings/PostLoading";
 import Post from "./post";
 import { getPostDashboard, getUserPost } from "../services/post.service";
 import { useSelector } from "react-redux";
@@ -43,9 +42,9 @@ export default function PostList(props) {
 
       {loading ? (
         <>
-          <PostLoading />
-          <PostLoading />
-          <PostLoading />
+          <Post.Loading />
+          <Post.Loading />
+          <Post.Loading />
         </>
       ) : posts.length > 0 ? (
         posts.map((post) => (

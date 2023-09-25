@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Comment from "./Comment";
 import CreateCommentBox from "./CreateComment";
 import { getPostComment } from "../services/comment.service";
-import CommentLoading from "./loadings/CommentLoading";
 
 export default function CommentList(props) {
   const { post_id } = props;
@@ -26,9 +25,9 @@ export default function CommentList(props) {
       <div className={"max-h-[200px] overflow-auto"}>
         {loading ? (
           <>
-            <CommentLoading />
-            <CommentLoading />
-            <CommentLoading />
+            <Comment.Loading />
+            <Comment.Loading />
+            <Comment.Loading />
           </>
         ) : comments.length > 0 ? (
           comments.map((comment) => (
